@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absensi</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            text-align: center;
+            background: linear-gradient(to right, #8360c3, #2ebf91);
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: auto;
+        }
+        .container, .login-container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        input, select, button {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+        }
+        input, select {
+            width: 80%;
+        }
+        button {
+            background-color: #210f83;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #210f83;
+        }
+        .table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            max-width: 600px;
+            border-collapse: collapse;
+            background: white;
+            color: black;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            margin: auto;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #210f83;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <img src="logo.png" alt="Logo" class="logo">
+    
+    <div id="login" class="login-container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Masukkan Username">
+        <input type="password" id="password" placeholder="Masukkan Password">
+        <button onclick="login()">Masuk</button>
+    </div>
+    
+    <div id="absensi" class="container" style="display: none;">
+        <h2>Absensi Kehadiran</h2>
+        <input type="text" id="name" placeholder="Masukkan Nama">
+        <select id="class">
+            <option value="Kelas X RPL 1">Kelas X RPL 1</option>
+            <option value="Kelas X RPL 2">Kelas X RPL 2</option>
+            <option value="Kelas X TBSM">Kelas X TBSM</option>
+            <option value="Kelas X ATP">Kelas X ATP</option>
+            <option value="Kelas XI RPL 1">Kelas XI RPL 1</option>
+            <option value="Kelas XI RPL 2">Kelas XI RPL 2</option>
+            <option value="Kelas XI TBSM">Kelas XI TBSM</option>
+            <option value="Kelas XI ATP">Kelas XI ATP</option>
+            <option value="Kelas XII RPL 1">Kelas XII RPL 1</option>
+            <option value="Kelas XII RPL 2">Kelas XII RPL 2</option>
+            <option value="Kelas XII RPL 3">Kelas XII RPL 3</option>
+            <option value="Kelas XII TBSM">Kelas XII TBSM</option>
+        </select>
+        <select id="status">
+            <option value="Hadir">Hadir</option>
+            <option value="Izin">Izin</option>
+            <option value="Alfa">Alfa</option>
+            <option value="Terlambat">Terlambat</option>
+        </select>
+        <button onclick="addAbsensi()">Absen</button>
+    </div>
+    
+    <div class="table-container" id="table-container" style="display: none;">
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Kelas</th>
+                    <th>Status</th>
+                    <th>Waktu</th>
+                </tr>
+            </thead>
+            <tbody id="absensi-list"></tbody>
+        </table>
+    </div>
+    
+    <script>
+        function login() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            
+            if (username === "smk" && password === "1234") {
+                document.getElementById("login").style.display = "none";
+                document.getElementById("absensi").style.display = "block";
+                document.getElementById("table-container").style.display = "block";
+            } else {
+                alert("Username atau Password salah!");
+            }
+        }
+
+        function addAbsensi() {
+            let name = document.getElementById("name").value;
+            let kelas = document.getElementById("class").value;
+            let status = document.getElementById("status").value;
+            if (name === "") {
+                alert("Nama tidak boleh kosong!");
+                return;
+            }
+
+            let table = document.getElementById("absensi-list");
+            let row = table.insertRow();
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            let cell3 = row.insertCell(2);
+            let cell4 = row.insertCell(3);
+            let cell5 = row.insertCell(4);
+
+            cell1.innerHTML = table.rows.length;
+            cell2.innerHTML = name;
+            cell3.innerHTML = kelas;
+            cell4.innerHTML = status;
+            cell5.innerHTML = new Date().toLocaleString();
+
+            document.getElementById("name").value = "";
+        }
+    </script>
+</body>
+</html>
